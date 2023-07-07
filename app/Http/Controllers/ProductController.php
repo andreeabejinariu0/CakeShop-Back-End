@@ -19,7 +19,7 @@ class ProductController extends Controller
     /**
      * Extragerea produselor si livrarea acestora
      */
-    public function getAll(Request $request)
+    public function getAllProduct(Request $request)
     {
    
        return Product::all();
