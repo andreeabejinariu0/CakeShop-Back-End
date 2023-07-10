@@ -25,12 +25,17 @@ class ProductController extends Controller
        return Product::all();
     }
 
+    public function getOneProduct($product_id )
+    {
+        return Product::where('id', $product_id)->get() ;
+    }
+
     /**
      * 
      */
     public function search($category_id)
     {
-        return Product::where('category_id', 'like', '%'.$category_id.'%')->get() ;
+        return Product::where('category_id', 'like', $category_id.'%')->get() ;
     }
 
 }
