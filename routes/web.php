@@ -17,6 +17,7 @@ Route::get('/products/{category_id}', [App\Http\Controllers\ProductController::c
 Route::get('/product/{id}', [App\Http\Controllers\ProductController::class, 'getOneProduct']);
 
 Route::get('/category', [App\Http\Controllers\CategoryController::class, 'getAllCategory']);
+Route::get('/clients', [App\Http\Controllers\AuthenticationController::class, 'login']);
 
 Route::get('/', function () {
     return view('welcome');
