@@ -1,14 +1,14 @@
 <?php
+namespace App\Http\Controllers\API;use Illuminate\Http\Request; 
+use App\Http\Controllers\Controller; 
+use App\User; 
+use Illuminate\Support\Facades\Auth; 
 
-namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
-use App\Http\Models\User;
-use Hash;
-
-class AuthenticationController extends Controller
+use Validator;class UserController extends Controller 
 {
-    public $successStatus = 200;/** 
+    public $successStatus = 200;
+    
+    /** 
      * login api 
      * 
      * @return \Illuminate\Http\Response 
@@ -23,7 +23,8 @@ class AuthenticationController extends Controller
             return response()->json(['error'=>'Unauthorised'], 401); 
         } 
     }
-/** 
+
+    /** 
      * Register api 
      * 
      * @return \Illuminate\Http\Response 
@@ -36,17 +37,18 @@ class AuthenticationController extends Controller
             'password' => 'required', 
             'c_password' => 'required|same:password', 
         ]);
-if ($validator->fails()) { 
+        if ($validator->fails()) { 
             return response()->json(['error'=>$validator->errors()], 401);            
         }
-$input = $request->all(); 
+        $input = $request->all(); 
         $input['password'] = bcrypt($input['password']); 
         $user = User::create($input); 
         $success['token'] =  $user->createToken('MyApp')-> accessToken; 
         $success['name'] =  $user->name;
-return response()->json(['success'=>$success], $this-> successStatus); 
+        return response()->json(['success'=>$success], $this-> successStatus); 
     }
-/** 
+    
+    /** 
      * details api 
      * 
      * @return \Illuminate\Http\Response 
